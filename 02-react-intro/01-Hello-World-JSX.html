@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Hello World</title>
+	<script src="react.js"></script>
+	<script src="react-dom.js"></script>
+	<script src="babel.min.js"></script>
+	<script type="text/babel">
+		var greetMsg= 'Hello World!';
+
+		function renderApp(){
+			var appEle = <div>
+					<h1>Welcome To React.js</h1>
+					<hr />
+					<div>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi quis voluptatibus amet accusamus omnis velit, quidem sequi sit fugiat voluptatum repellat ipsa, cupiditate error voluptates libero aliquam totam quos necessitatibus.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi quis voluptatibus amet accusamus omnis velit, quidem sequi sit fugiat voluptatum repellat ipsa, cupiditate error voluptates libero aliquam totam quos necessitatibus.</p>
+					</div>
+				</div>;
+			
+			ReactDOM.render(
+				appEle,
+				document.getElementById('root')
+			);
+		}
+		//window.addEventListener('DOMContentLoaded', renderApp);
+		renderApp();
+	</script>
+</head>
+<body>
+	<div id="root"></div>
+</body>
+</html>

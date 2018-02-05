@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Hello World</title>
+	<script src="react.js"></script>
+	<script src="react-dom.js"></script>
+	<script>
+		function renderApp(){
+			var divEle = document.createElement('div');
+			var h1Ele = document.createElement('h1');
+			h1Ele.innerHTML = 'Welcome to React.js!';
+			divEle.appendChild(h1Ele);
+
+			document.body.replaceChild(document.body.firstChild, divEle);
+		}
+
+		window.addEventListener('DOMContentLoaded', renderApp);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

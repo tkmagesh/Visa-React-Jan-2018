@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Greeter</title>
+	<script src="react.js"></script>
+	<script src="react-dom.js"></script>
+	<script src="babel.min.js"></script>
+	<script type="text/babel">
+		
+		var btnGreet = document.getElementById('btnGreet');
+		btnGreet.addEventListener('click', renderApp);
+
+		class Greeter extends React.Component{
+			render(){
+				return (
+					<h1>{this.props.data}</h1>
+				);
+
+			}
+		}
+		function renderApp(){
+			var userName = prompt('Enter the username :');
+			var greetMsg = "Hi " + userName + ', Have a nice day!';
+
+			
+			/*ReactDOM.render(React.createElement(Greeter, {data : greetMsg})
+				, document.getElementById('root'));*/
+
+			ReactDOM.render(<Greeter data={greetMsg} />
+				, document.getElementById('root'));
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="Greet" id="btnGreet">
+	<div id="root">
+		
+	</div>
+</body>
+</html>
