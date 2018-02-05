@@ -14,7 +14,7 @@
 		label{
 			display: block;
 		}
-		#divResult{
+		#tdSalary{
 			color : red;
 			font-size: 22pt;
 		}
@@ -27,7 +27,19 @@
 		//state & behavior
 		//Model
 		function SalaryCalculator(){
-			this.basic = 0;
+			
+			var _basic = 0;
+			this.onBasicChange = null;
+			this.getBasic = function(){
+				return _basic;
+			};
+			this.setBasic = function(value){
+				if (_basic === value) return;
+				_basic = value;
+				if (typeof this.onBasicChange === 'function')
+					this.onBasicChange();
+			}
+
 			this.hra = 0;
 			this.da= 0;
 			this.tax = 0;
@@ -36,7 +48,7 @@
 			this.onSalaryChange = null;
 		}
 		SalaryCalculator.prototype.calculate = function() {
-			var gross = this.basic + this.hra + this.da;
+			var gross = this.getBasic() + this.hra + this.da;
 			var net = gross * ((100-this.tax)/100);
 			this.salary = net;
 			if (typeof this.onSalaryChange === 'function'){
@@ -49,7 +61,7 @@
 			window.calculator = new SalaryCalculator();
 
 			$('#txtBasic').change(function(){
-				calculator.basic = $('#txtBasic').val().toInt();
+				calculator.setBasic($('#txtBasic').val().toInt());
 			});
 
 			$('#txtHra').change(function(){
@@ -72,7 +84,10 @@
 			});
 
 			calculator.onSalaryChange = function(){
-				$('#divResult').html(calculator.salary);
+				$('#tdSalary').html(calculator.salary);
+			};
+			calculator.onBasicChange = function(){
+				$('#tdBasic').html(calculator.getBasic());
 			}
 		});
 	</script>
