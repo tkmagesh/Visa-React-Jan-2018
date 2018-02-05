@@ -9,8 +9,6 @@
 	<script type="text/babel">
 		class Calculator extends React.Component{
 			state = {
-				n1 : 0,
-				n2 : 0,
 				result : 0
 			};
 			constructor(){
@@ -19,31 +17,22 @@
 				this.onSubtractClick = this.onSubtractClick.bind(this);
 				this.onMultiplyClick = this.onMultiplyClick.bind(this);
 				this.onDivideClick = this.onDivideClick.bind(this);
-				this.onNumber1Change = this.onNumber1Change.bind(this);
-				this.onNumber2Change = this.onNumber2Change.bind(this);
 			}
-			onNumber1Change(evt){
-				var value = parseInt(evt.target.value, 10);
-				this.setState({n1 : value});
-			}
-			onNumber2Change(evt){
-				var value = parseInt(evt.target.value, 10);
-				this.setState({n2 : value});
-			}
+			
 			onAddClick(){
-				var result = this.state.n1 + this.state.n2;
+				var result = parseInt(this.refs.txtNumber1.value, 10) + parseInt(this.refs.txtNumber2.value, 10);
 				this.setState({result :  result});
 			}
 			onSubtractClick(){
-				var result = this.state.n1 - this.state.n2;
+				var result = parseInt(this.refs.txtNumber1.value, 10) - parseInt(this.refs.txtNumber2.value, 10);
 				this.setState({result :  result});
 			}
 			onMultiplyClick(){
-				var result = this.state.n1 * this.state.n2;
+				var result = parseInt(this.refs.txtNumber1.value, 10) * parseInt(this.refs.txtNumber2.value, 10);
 				this.setState({result :  result});
 			}
 			onDivideClick(){
-				var result = this.state.n1 / this.state.n2;
+				var result = parseInt(this.refs.txtNumber1.value, 10) / parseInt(this.refs.txtNumber2.value, 10);
 				this.setState({result :  result});
 			}
 			render(){
@@ -51,8 +40,8 @@
 					<div>
 						<h1>Calculator</h1>
 						<hr />
-						<input type="number" onChange={this.onNumber1Change}/>
-						<input type="number" onChange={this.onNumber2Change}/>
+						<input type="number" ref="txtNumber1"/>
+						<input type="number" ref="txtNumber2"/>
 						<input type="button" value="Add" onClick={this.onAddClick}/>
 						<input type="button" value="Subtract" onClick={this.onSubtractClick}/>
 						<input type="button" value="Multiply" onClick={this.onMultiplyClick}/>

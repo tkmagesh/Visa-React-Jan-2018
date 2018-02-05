@@ -7,10 +7,29 @@
 	<script src="react-dom.js"></script>
 	<script src="babel.min.js"></script>
 	<script type="text/babel">
+		class CalculatorModel {
+			constructor(){
+				this.n1 = 0;
+				this.n2 = 0;
+				this.result = 0;
+			}
+			add(){
+				this.result = this.n1 + this.n2;
+			}
+			subtract(){
+				this.result = this.n1 - this.n2;
+			}
+			multiply(){
+				this.result = this.n1 * this.n2;
+			}
+			divide(){
+				this.result = this.n1 / this.n2;
+			}
+
+		}
+
 		class Calculator extends React.Component{
 			state = {
-				n1 : 0,
-				n2 : 0,
 				result : 0
 			};
 			constructor(){
@@ -19,40 +38,46 @@
 				this.onSubtractClick = this.onSubtractClick.bind(this);
 				this.onMultiplyClick = this.onMultiplyClick.bind(this);
 				this.onDivideClick = this.onDivideClick.bind(this);
-				this.onNumber1Change = this.onNumber1Change.bind(this);
-				this.onNumber2Change = this.onNumber2Change.bind(this);
 			}
+
 			onNumber1Change(evt){
 				var value = parseInt(evt.target.value, 10);
-				this.setState({n1 : value});
+				this.props.model.n1 = value;
 			}
+			
+
 			onNumber2Change(evt){
 				var value = parseInt(evt.target.value, 10);
-				this.setState({n2 : value});
+				this.props.model.n2 = value;
 			}
+
 			onAddClick(){
-				var result = this.state.n1 + this.state.n2;
-				this.setState({result :  result});
+				var model = this.props.model;
+				model.add();
+				this.setState({result :  model.result});
 			}
 			onSubtractClick(){
-				var result = this.state.n1 - this.state.n2;
-				this.setState({result :  result});
+				var model = this.props.model;
+				model.subtract();
+				this.setState({result :  model.result});
 			}
 			onMultiplyClick(){
-				var result = this.state.n1 * this.state.n2;
-				this.setState({result :  result});
+				var model = this.props.model;
+				model.multiply();
+				this.setState({result :  model.result});
 			}
 			onDivideClick(){
-				var result = this.state.n1 / this.state.n2;
-				this.setState({result :  result});
+				var model = this.props.model;
+				model.divide();
+				this.setState({result :  model.result});
 			}
 			render(){
 				return(
 					<div>
 						<h1>Calculator</h1>
 						<hr />
-						<input type="number" onChange={this.onNumber1Change}/>
-						<input type="number" onChange={this.onNumber2Change}/>
+						<input type="number"  onChange={this.onNumber1Change.bind(this)}/>
+						<input type="number"  onChange={this.onNumber2Change.bind(this)} />
 						<input type="button" value="Add" onClick={this.onAddClick}/>
 						<input type="button" value="Subtract" onClick={this.onSubtractClick}/>
 						<input type="button" value="Multiply" onClick={this.onMultiplyClick}/>
@@ -62,7 +87,9 @@
 				)
 			}
 		}
-		ReactDOM.render(<Calculator />,
+		var calculatorModel = new CalculatorModel();
+
+		ReactDOM.render(<Calculator model={calculatorModel}/>,
 			document.getElementById('root'));
 	</script>
 </head>
