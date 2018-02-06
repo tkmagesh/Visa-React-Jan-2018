@@ -69,8 +69,16 @@
 				this.list = [];
 			}
 			addNew(bugName){
-				this.list.push(bugName);
+				let newBug = new Bug(bugName);
+				this.list.push(newBug);
 				this.triggerChange();
+			}
+		}
+
+		class Bug {
+			constructor(name = ''){
+				this.name = name;
+				this.isClosed = false
 			}
 		}
 
@@ -89,7 +97,7 @@
 					{ list } = model,
 					bugItems = list.map((bug,index) => (
 						<li key={index}>
-							<span className="bugname">{bug}</span>
+							<span className="bugname">{bug.name}</span>
 							<div className="datetime">[Created At]</div>
 						</li>
 					));
