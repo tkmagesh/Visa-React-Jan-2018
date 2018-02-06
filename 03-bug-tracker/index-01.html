@@ -51,18 +51,26 @@
 	<script src="react-dom.js"></script>
 	<script src="babel.min.js"></script>
 	<script type="text/babel">
-		class BugsCollection{
+		class EventEmitter{
 			constructor(){
-				this.list = [
-					'Server communication failure',
-					'User actions not recognised',
-					'Data integrity checks failed'
-				];
+				this.__listeners = [];
+			}
+			subscribe(listenerFn){
+				if (typeof listenerFn === 'function')
+					this.__listeners.push(listenerFn);
+			}
+			triggerChange(){
+				this.__listeners.forEach(listenerFn => listenerFn());
+			}
+		}
+		class BugsCollection extends EventEmitter{
+			constructor(){
+				super();
+				this.list = [];
 			}
 			addNew(bugName){
 				this.list.push(bugName);
-				console.log('new bug added');
-				console.table(this.list);
+				this.triggerChange();
 			}
 		}
 
@@ -118,9 +126,12 @@
 		}
 
 		let bugsCollection = new BugsCollection();
-
-		ReactDOM.render(<BugTracker model={bugsCollection}/>,
-			document.getElementById('root'));
+		function renderApp(){
+			ReactDOM.render(<BugTracker model={bugsCollection}/>,
+				document.getElementById('root'));
+		}
+		renderApp();
+		bugsCollection.subscribe(renderApp);
 	</script>
 </head>
 <body>
