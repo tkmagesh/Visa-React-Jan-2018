@@ -82,7 +82,23 @@
 			}
 		}
 
-
+		class BugItem extends React.Component{
+			onBugNameClick(){
+				console.log(`${this.props.bug.name} - is clicked`);
+			}
+			render(){
+				let { bug } = this.props;
+				return(
+					<li>
+						<span className="bugname" onClick={this.onBugNameClick.bind(this)}>
+							{bug.name}
+						</span>
+						<div className="datetime">[Created At]</div>
+					</li>
+				)
+			}
+		}
+		
 		class BugTracker extends React.Component{
 			constructor(){
 				super();
@@ -96,10 +112,7 @@
 				let { model } = this.props,
 					{ list } = model,
 					bugItems = list.map((bug,index) => (
-						<li key={index}>
-							<span className="bugname">{bug.name}</span>
-							<div className="datetime">[Created At]</div>
-						</li>
+						<BugItem key={index} bug={bug} />
 					));
 				return(
 					<div>
