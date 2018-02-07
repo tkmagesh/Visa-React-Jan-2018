@@ -1,10 +1,9 @@
-import axios from 'axios';
+import { getAll } from '../services/bugServer'
 
 export function load(){
 	return function(dispatch){
-		axios
-			.get('http://localhost:3030/bugs')
-			.then(response => response.data)
-			.then(data => dispatch({type : 'LOAD', payload : data}));
+		console.log(arguments);
+		getAll()
+			.then(bugs => dispatch({type : 'LOAD', payload : bugs}));
 	}
 }

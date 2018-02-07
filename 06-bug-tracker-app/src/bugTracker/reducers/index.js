@@ -13,8 +13,8 @@ function bugsReducer(currentState = [], action){
 		return currentState.map(bug => bug === bugToBeReplaced ? bugToReplace : bug);
 	}
 	if (action.type === 'REMOVE'){
-		let bugsToRemove = action.payload;
-		return currentState.filter(bug => bugsToRemove.indexOf(bug) === -1);
+		let bugToRemove = action.payload;
+		return currentState.filter(bug => bug.id !== bugToRemove.id);
 	}
 	if (action.type === 'SORT'){
 		return action.payload;
