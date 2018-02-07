@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>State Manager - intro</title>
+	<!-- <script src="state-manager.js"></script> -->
+	<script src="react.js"></script>
+	<script src="react-dom.js"></script>
+	<script src="babel.min.js"></script>
+	<script src="redux.js"></script>
+	<script type="text/babel">
+		let bugActionCreators = {
+			increment(){
+				return { type : 'INCREMENT' };
+			},
+			decrement(){
+				return { type : 'DECREMENT' };
+			}
+		};
+
+		class Spinner extends React.Component{
+			constructor(){
+				super();
+				this.onIncrementClick = this.onIncrementClick.bind(this);
+				this.onDecrementClick = this.onDecrementClick.bind(this);
+			}
+			onIncrementClick(){
+				let inc_action = this.props.actionCreators.increment();
+				this.props.store.dispatch(inc_action);
+			}
+			onDecrementClick(){
+				let dec_action = this.props.actionCreators.decrement();
+				this.props.store.dispatch(dec_action);
+			}
+			render(){
+				let value = this.props.store.getState();
+				return(
+					<div>
+						<input type="button" value="Decrement" onClick={this.onDecrementClick} />
+						<span> {value} </span>
+						<input type="button" value="Increment" onClick={this.onIncrementClick} />
+					</div>
+				)
+			}
+		}
+
+		function spinnerReducer(currentState = 0, action){
+			if (action.type === 'INCREMENT')
+				return ++currentState;
+			if (action.type === 'DECREMENT')
+				return --currentState;
+			return currentState;
+		}
+
+		let store = Redux.createStore(spinnerReducer);
+		store.subscribe(renderApp);
+		function renderApp(){
+			ReactDOM.render(<Spinner store={store} actionCreators={bugActionCreators}/>,
+				document.getElementById('root'));
+		}
+		renderApp();
+	</script>
+
+</head>
+<body>
+	<div id="root"></div>
+</body>
+</html>

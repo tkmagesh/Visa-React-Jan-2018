@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>State Manager - intro</title>
+	<!-- <script src="state-manager.js"></script> -->
+	<script src="react.js"></script>
+	<script src="react-dom.js"></script>
+	<script src="babel.min.js"></script>
+	<script src="redux.js"></script>
+	<script type="text/babel">
+		let bugActionCreators = {
+			increment(){
+				return { type : 'INCREMENT' };
+			},
+			decrement(){
+				return { type : 'DECREMENT' };
+			}
+		};
+
+		function bindActionCreators(bugActionCreators, dispatch){
+			let boundActions = {
+				increment(){
+					let action = bugActionCreators.increment();
+					dispatch(action);
+				},
+				decrement(){
+					let action = bugActionCreators.decrement();
+					dispatch(action);
+				}
+			};
+			return boundActions;
+		}
+
+		class Spinner extends React.Component{
+			constructor(){
+				super();
+				this.onIncrementClick = this.onIncrementClick.bind(this);
+				this.onDecrementClick = this.onDecrementClick.bind(this);
+			}
+			onIncrementClick(){
+				this.props.increment();
+			}
+			onDecrementClick(){
+				this.props.decrement();
+			}
+			render(){
+				let { value } = this.props;
+				return(
+					<div>
+						<input type="button" value="Decrement" onClick={this.onDecrementClick} />
+						<span> {value} </span>
+						<input type="button" value="Increment" onClick={this.onIncrementClick} />
+					</div>
+				)
+			}
+		}
+
+		function spinnerReducer(currentState = 0, action){
+			if (action.type === 'INCREMENT')
+				return ++currentState;
+			if (action.type === 'DECREMENT')
+				return --currentState;
+			return currentState;
+		}
+
+		let store = Redux.createStore(spinnerReducer);
+		let bugActions = bindActionCreators(bugActionCreators, store.dispatch);
+		function renderApp(){
+			let spinnerValue = store.getState();
+			//let spinner = <Spinner value={spinnerValue} increment={bugActions.increment} decrement={bugActions.decrement} />
+			let spinner = <Spinner value={spinnerValue} {...bugActions} />
+			ReactDOM.render(spinner,
+				document.getElementById('root'));
+		}
+		store.subscribe(renderApp);
+		renderApp();
+	</script>
+
+</head>
+<body>
+	<div id="root"></div>
+</body>
+</html>
