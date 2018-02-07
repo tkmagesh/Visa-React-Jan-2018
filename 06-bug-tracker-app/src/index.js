@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { bindActionCreators } from 'redux';
+
 
 import './index.css';
 
 import appStore from './store';
+import axios from 'axios';
+
 
 /*
+import { bindActionCreators } from 'redux';
 import bugActionCreators from './bugTracker/actions';
 import BugTracker from './bugTracker/BugTracker';
 
@@ -38,6 +41,7 @@ import { Provider } from 'react-redux';
 import BugTracker from './bugTracker/BugTracker';
 import Spinner from './spinner';
 
+window.axios = axios;
 
 ReactDOM.render(
 		<Provider store={appStore}>
