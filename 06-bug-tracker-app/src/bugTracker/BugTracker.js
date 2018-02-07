@@ -18,8 +18,9 @@ let BugTracker = ({ bugs, toggle, removeClosed, sort, addNew }) => (
 	</div>
 );
 
-function mapStateToProps(state){
+/*function mapStateToProps(state){
 	//extract the required state (bugsData) and return
+	//let bugs = state.bugsData.filter((bug, index) => index % 2 === state.spinnerData % 2);
 	let bugs = state.bugsData;
 	return {
 		bugs : bugs
@@ -29,7 +30,12 @@ function mapDispatchToProps(dispatch){
 	//create bugActions (bound with dipatch) and return
 	let bugActions = bindActionCreators(bugActionCreators, dispatch);
 	return bugActions;
-}
-export default connect(mapStateToProps, mapDispatchToProps)(BugTracker);
+}*/
+
+
+export default connect(
+	({bugsData : bugs, spinnerData}) => ({bugs : bugs.filter((bug, index) => index % 2 === spinnerData % 2)}), 
+	(dispatch) => bindActionCreators(bugActionCreators, dispatch))
+(BugTracker);
 
 
