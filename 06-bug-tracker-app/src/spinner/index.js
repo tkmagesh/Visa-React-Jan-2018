@@ -1,4 +1,7 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import spinnerActionCreators from './actions';
 
 let Spinner = ({value, increment, decrement}) => (
 	<div>
@@ -7,4 +10,17 @@ let Spinner = ({value, increment, decrement}) => (
 		<input type="button" value="Increment" onClick={increment} />
 	</div>
 );
-export default Spinner;
+
+function mapStateToProps(state){
+	let spinnerValue = state.spinnerData;
+	return {
+		value : spinnerValue
+	};
+}
+
+function mapDispatchToProps(dispatch){
+	let spinnerActions = bindActionCreators(spinnerActionCreators, dispatch);
+	return spinnerActions;
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Spinner);

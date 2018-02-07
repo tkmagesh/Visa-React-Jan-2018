@@ -6,7 +6,7 @@ import './index.css';
 
 import appStore from './store';
 
-import bugActionCreators from './bugTracker/actions';
+/*import bugActionCreators from './bugTracker/actions';
 import BugTracker from './bugTracker/BugTracker';
 
 import spinnerActionCreators from './spinner/actions';
@@ -29,5 +29,19 @@ function renderApp(){
 }
 renderApp();
 appStore.subscribe(renderApp);
-window.store = appStore;
+window.store = appStore;*/
 
+import { Provider } from 'react-redux';
+import BugTracker from './bugTracker/BugTracker';
+import Spinner from './spinner';
+
+
+ReactDOM.render(
+		<Provider store={appStore}>
+			<div>
+				<Spinner />
+				<hr/>
+				<BugTracker/>
+			</div>
+		</Provider>,
+		document.getElementById('root'));
