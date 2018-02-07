@@ -1,0 +1,32 @@
+{
+  "bugs": [
+    {
+      "id": 1,
+      "name": "Unable to create a new bug",
+      "isClosed": false,
+      "createdAt": "2017-11-22T06:35:08.207Z"
+    },
+    {
+      "id": 3,
+      "name": "another new bug",
+      "isClosed": false,
+      "createdAt": "2017-12-07T09:53:50.992Z"
+    },
+    {
+      "id": 4,
+      "name": "routing is not routing",
+      "isClosed": false,
+      "createdAt": "2017-12-30T10:52:32.027Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": "P102",
+      "name": "Bug Tracker"
+    },
+    {
+      "id": "P101",
+      "name": "Payroll Management"
+    }
+  ]
+}
