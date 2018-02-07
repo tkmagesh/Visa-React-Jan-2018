@@ -19,3 +19,9 @@ export function remove(bug){
 		.delete(`${baseUrl}/${bug.id}`)
 		.then(response => response.data);
 }
+
+export function save(bug){
+	return axios
+		.put(`${baseUrl}/${bug.id}`, bug)
+		.then(response => response.data);	
+}

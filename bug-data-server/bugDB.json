@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Unable to create a new bug",
-      "isClosed": false,
+      "isClosed": true,
       "createdAt": "2017-11-22T06:35:08.207Z"
     },
     {

@@ -1,4 +1,9 @@
-export function toggle(bugToToggle){
-	let toggledBug = {...bugToToggle, isClosed : !bugToToggle.isClosed};
-	return {type : 'TOGGLE', payload : {oldBug : bugToToggle, newBug : toggledBug}};
+import { save } from '../services/bugServer';
+
+export  function toggle(bugToToggle){
+	return async function(dispatch){
+		let toggledBugData = {...bugToToggle, isClosed : !bugToToggle.isClosed};
+		let toggledBug = await save(toggledBugData)
+		dispatch({type : 'UPDATE', payload : toggledBug});
+	}
 }

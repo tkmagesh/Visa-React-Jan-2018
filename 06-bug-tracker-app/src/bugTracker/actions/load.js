@@ -1,9 +1,8 @@
-import { getAll } from '../services/bugServer'
+import { getAll } from '../services/bugServer';
 
 export function load(){
-	return function(dispatch){
-		console.log(arguments);
-		getAll()
-			.then(bugs => dispatch({type : 'LOAD', payload : bugs}));
+	return async function(dispatch){
+		let bugs = await getAll();
+		dispatch({type : 'LOAD', payload : bugs});
 	}
 }

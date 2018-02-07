@@ -7,10 +7,9 @@ function bugsReducer(currentState = [], action){
 		let newState = [...currentState, newBug];
 		return newState;
 	}
-	if (action.type === 'TOGGLE'){
-		let bugToBeReplaced = action.payload.oldBug,
-			bugToReplace = action.payload.newBug;
-		return currentState.map(bug => bug === bugToBeReplaced ? bugToReplace : bug);
+	if (action.type === 'UPDATE'){
+		let bugToUpdate = action.payload;
+		return currentState.map(bug => bug.id === bugToUpdate.id ? bugToUpdate : bug);
 	}
 	if (action.type === 'REMOVE'){
 		let bugToRemove = action.payload;
