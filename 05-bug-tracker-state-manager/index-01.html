@@ -59,6 +59,11 @@
 				let newState = [...currentState, newBug];
 				return newState;
 			}
+			if (action.type === 'TOGGLE'){
+				let bugToBeReplaced = action.payload.oldBug,
+					bugToReplace = action.payload.newBug;
+				return currentState.map(bug => bug === bugToBeReplaced ? bugToReplace : bug);
+			}
 			return currentState;
 		}
 
@@ -66,19 +71,24 @@
 			addNew(bugName){
 				let newBug = { name : bugName, isClosed : false};
 				return {type : 'ADD_NEW', payload : newBug};
+			},
+			toggle(bugToToggle){
+				let toggledBug = {...bugToToggle, isClosed : !bugToToggle.isClosed};
+				return {type : 'TOGGLE', payload : {oldBug : bugToToggle, newBug : toggledBug}};
 			}
 		};
 		
 
 		class BugItem extends React.Component{
 			onBugNameClick(){
-				console.log(`${this.props.bug.name} - is clicked`);
+				this.props.toggle(this.props.bug);
 			}
 			render(){
-				let { bug } = this.props;
+				let { bug } = this.props,
+					bugStyles = bug.isClosed ? 'bugname closed' : 'bugname';
 				return(
 					<li>
-						<span className="bugname" onClick={this.onBugNameClick.bind(this)}>
+						<span className={bugStyles} onClick={this.onBugNameClick.bind(this)}>
 							{bug.name}
 						</span>
 						<div>{bug.isClosed.toString()}</div>
@@ -98,9 +108,9 @@
 				this.props.addNew(bugName);
 			}
 			render(){
-				let { bugs } = this.props,
+				let { bugs, toggle } = this.props,
 					bugItems = bugs.map((bug,index) => (
-						<BugItem key={index} bug={bug} />
+						<BugItem key={index} bug={bug} toggle={toggle} />
 					));
 				return(
 					<div>
