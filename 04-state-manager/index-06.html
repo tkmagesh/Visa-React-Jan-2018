@@ -31,7 +31,7 @@
 			};
 			return boundActions;
 		}*/}
-		function bindActionCreators(actionCreators, dispatch){
+		{/*function bindActionCreators(actionCreators, dispatch){
 			let result = {};
 			for(let key in actionCreators){
 				result[key] = function(){
@@ -40,7 +40,7 @@
 				}
 			}
 			return result;
-		}
+		}*/}
 
 		{/*class Spinner extends React.Component{
 			constructor(){
@@ -83,7 +83,7 @@
 		}
 
 		let store = Redux.createStore(spinnerReducer);
-		let bugActions = bindActionCreators(bugActionCreators, store.dispatch);
+		let bugActions = Redux.bindActionCreators(bugActionCreators, store.dispatch);
 		function renderApp(){
 			let spinnerValue = store.getState();
 			//let spinner = <Spinner value={spinnerValue} increment={bugActions.increment} decrement={bugActions.decrement} />
